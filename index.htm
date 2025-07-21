@@ -1,122 +1,134 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Task Manager</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
-      background: #f4f4f4;
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-    }
-    form {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 800px;
-      margin: auto;
-      text-align: center;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-   
-    }
-    label {
-      display: block;
-      margin-top: 10px;
-      font-weight: bold;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-         outline: none;
-    }
-    button {
-      background: #28a745;
-      color: #fff;
-      border: none;
-      margin-top: 15px;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .task-list {
-      margin-top: 30px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .task {
-      background: #fff;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      border-left: 5px solid #007bff;
-      box-shadow: 0 0 5px rgba(0,0,0,0.05);
-    }
-    .task h3 {
-      margin: 0;
-    }
-    .task small {
-      color: #555;
-    }
-    .delete-btn, .edit-btn {
-      background: #dc3545;
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      float: right;
-      cursor: pointer;
-      border-radius: 5px;
-      margin-left: 5px;
-    }
-    .edit-btn {
-      background: #ffc107;
-      color: #000;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        label {
+            font-size: 20px;
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #000000;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            color: #000;
+            font-size: 20px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 15px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .task-list {
+            margin-top: 30px;
+        }
+
+        .task {
+            background: #fafafa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid black;
+        }
+
+        .task h3 {
+            margin: 0 0 8px;
+            color: #333;
+        }
+
+        .task p {
+            margin: 4px 0;
+            color: #555;
+        }
+
+        .task button {
+            padding: 10px 30px;
+            margin-left: 5px;
+            font-size: 18px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .edit-btn {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
 
-<h1>Task Manager</h1>
+    <h1>Task Manager</h1>
 
-<form id="taskForm">
-  <label>Title</label>
-  <input type="text" id="title" required>
+    <div class="container">
+        <form id="taskForm">
+            <label>Task Title</label>
+            <input type="text" id="title" placeholder="Enter Task" required>
 
-  <label>Date</label>
-  <input type="date" id="date" required>
+            <label>Date</label>
+            <input type="date" id="date" required>
 
-  <label>Priority</label>
-  <select id="priority" required>
-    <option value="">Select Priority</option>
-    <option value="High">High</option>
-    <option value="Medium">Medium</option>
-    <option value="Low">Low</option>
-  </select>
+            <label>Priority</label>
+            <select id="priority" required>
+                <option value="">Select Priority</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+            </select>
 
-  <label>Description</label>
-  <textarea id="description" rows="4" required></textarea>
+            <label>Description</label>
+            <textarea id="description" rows="3" placeholder="Enter Description" required></textarea>
 
-  <button type="submit" id="submitBtn">Add Task</button>
-</form>
-<div style="max-width: 600px; margin: 30px auto 0;">
-  <input type="text" id="searchInput" placeholder="Search tasks..." style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
-</div>
+            <button type="submit" id="submitBtn">Add Task</button>
+        </form>
 
-<div class="task-list" id="taskList"></div>
+        <div class="task-list" id="taskList"></div>
+    </div>
 
-
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
 </html>
