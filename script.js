@@ -2,31 +2,32 @@ const taskForm = document.getElementById('taskForm');
 const taskList = document.getElementById('taskList');
 const submitBtn = document.getElementById('submitBtn');
 
-let id = 0;
+let id = -1;
 
 function loadTasks() {
-    taskList.innerHTML = '';
     const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    let output = "";
 
-    tasks.forEach((user, index) => {
-        const taskDiv = document.createElement('div');
-        taskDiv.className = 'task';
-        taskDiv.innerHTML = `
-        <h3>${user.title}
-          <button class="delete-btn" onclick="deleteTask(${index})">Delete</button>
-          <button class="edit-btn" onclick="editTask(${index})">Edit</button>
-        </h3>
-        <p><strong>Date:</strong> ${user.date}</p><br>
-        <p><strong>Priority:</strong> ${user.priority}</p>
-        <p>${user.description}</p>
-      `;
-        taskList.appendChild(taskDiv);
-    });
+    for (let i = 0; i < tasks.length; i++) {
+        output += `
+        <div class="task">
+          <h3>Task Title: ${tasks[i].title}</h3>
+          <p><strong>Date:</strong> ${tasks[i].date}</p>
+          <p><strong>Priority:</strong> ${tasks[i].priority}</p>
+          <p>Task Description: ${tasks[i].description}</p>
+          <button class="edit-btn" onclick="editTask(${i})">Edit</button>
+          <button class="delete-btn" onclick="deleteTask(${i})">Delete</button>
+        </div>`;
+    }
+
+    taskList.innerHTML = output;
 }
 
 function deleteTask(index) {
     const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
     tasks.splice(index, 1);
+
     localStorage.setItem('tasks', JSON.stringify(tasks));
     loadTasks();
 }
@@ -44,7 +45,7 @@ function editTask(index) {
     submitBtn.textContent = 'Update Task';
 }
 
-taskForm.addEventListener('submit', (e) => {
+taskForm.addEventListener('submit', function (e) {
     e.preventDefault();
 
     const title = document.getElementById('title').value;
@@ -55,9 +56,9 @@ taskForm.addEventListener('submit', (e) => {
     const task = { title, date, priority, description };
     const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-    if (id > 0) {
-        tasks[editIndex] = task;
-        id = 0;
+    if (id >= 0) {
+        tasks[id] = task;
+        id = -1;
         submitBtn.textContent = 'Add Task';
     } else {
         tasks.push(task);
